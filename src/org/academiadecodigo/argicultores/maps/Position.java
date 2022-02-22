@@ -3,6 +3,7 @@ package org.academiadecodigo.argicultores.maps;
 public class Position {
     private int x;
     private int y;
+    public static final int CELLSIZE = 40;
 //    private int xMax;
   //  private int yMax;
 

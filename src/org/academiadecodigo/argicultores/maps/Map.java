@@ -21,11 +21,10 @@ public class Map {
                 new Box(130, 250),
                 new Box(130, 410),
                 new Box(130, 570),
-                new Box(130, 730),
                 new Box(530, 50),
                 new Box(570, 50),
                 new Box(650, 90),
-                new Box(730, 90),
+                new Box(730, 410),
                 new Box(650, 250),
                 new Box(730, 250),
                 new Box(650, 410),
@@ -38,6 +37,9 @@ public class Map {
                 new Box(650, 610),
                 new Box(650, 730),
                 new Box(650, 770),
+                new Box(730, 570),
+                new Box(730, 730),
+                new Box(650, 690),
 
                 new Box(250, 130),
                 new Box(290, 130),
@@ -85,24 +87,53 @@ public class Map {
                 new Box(370, 770),
                 new Box(410, 770),
                 new Box(450, 770),
-                new Box(490, 770)
+                new Box(490, 770),
 
-
+                new Box(50, 770),
+                new Box(90, 770),
+                new Box(130, 770),
+                new Box(170, 770),
+                new Box(210, 770)
         };
         return oneObs;
     }
 
     public Points[] levelOnePoints() {
         onePoints = new Points[]{
-                new Points(170, 170),
-                new Points(130, 130),
+                new Points(370, 50),
+                new Points(570, 10),
+                new Points(690, 90),
+                new Points(130, 170),
+                new Points(370, 170),
+                new Points(690, 250),
+                new Points(370, 290),
+                new Points(130, 330),
+                new Points(370, 410),
+                new Points(130, 490),
+                new Points(370, 530),
+                new Points(770, 530),
+                new Points(130, 650),
+                new Points(370, 690),
+                new Points(770, 770),
 
-
+                new Points(690, 770),
+                new Points(690, 530),
+                new Points(770, 650),
+                new Points(770, 450),
+                new Points(10, 770),
+                new Points(10, 50),
+                new Points(770, 10),
+                new Points(690, 170),
+                new Points(690, 410),
+                new Points(50, 250),
+                new Points(10, 730),
+                new Points(50, 730),
+                new Points(570, 770),
+                new Points(90, 730),
+                new Points(610, 770),
         };
         return onePoints;
     }
-
-    ;
 
     public Points[] getObstacles1() {
         return onePoints;

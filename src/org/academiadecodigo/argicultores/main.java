@@ -1,10 +1,17 @@
 package org.academiadecodigo.argicultores;
 
-public class main {
-    public static void main(String[] args) {
-        Game game = new Game();
+import org.academiadecodigo.simplegraphics.graphics.Text;
 
-        //game.init(); MENU START
-        game.start();   //LEVEL 1 START
+public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        Game game = new Game();
+        game.controls();
+        game.init();
+
+        game.start();
+
+        /*if(game.getRolo().getPoints())
+        game.drawHearts();
+        game.drawScore();*/
     }
 }

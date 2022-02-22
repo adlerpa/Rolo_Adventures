@@ -6,11 +6,14 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 public class Field {
     private Rectangle gameArea;
     private Picture map;
+    public static final int MARGIN = 10;
+    private String s;
 
-    public Field() {
-        map = new Picture(10,10,"/Users/codecadet/Desktop/RoloAdventures2/resources/AC_Class (1) (1).png");
+    public Field(String s) {
+        map = new Picture(10,10,s);
         map.draw();
-        gameArea = new Rectangle(10, 10, 800, 800);
+        this.s = s;
+        gameArea = new Rectangle(10, 10, 800, 850);
         gameArea.draw();
     }
 
@@ -18,8 +21,18 @@ public class Field {
         return gameArea.getWidth();
     }
 
-    public int getBottoLimit() {
+    public int getBottomLimit() {
         return gameArea.getWidth();
     }
 
+    public String getS() {
+        return s;
+    }
+
+    public Picture getMap() {
+        return map;
+    }
+    public void deleteMap(){
+        map.delete();
+    }
 }

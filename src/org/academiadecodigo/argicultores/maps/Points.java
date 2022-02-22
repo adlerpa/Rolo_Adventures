@@ -6,17 +6,29 @@ public class Points extends Picture {
     private Picture points;
     private double PosX;
     private double PosY;
+    private boolean exists = true;
 
     public Points(double PosX, double PosY){
-        points = new Picture(PosX, PosY, "../RoloAdventures2/resources/beer.png");
+        points = new Picture(PosX, PosY, "beer.png");
+
         this.PosX = PosX;
         this.PosY = PosY;
         points.draw();
     }
 
-    public void setImage(String s){
-        points.load(s);
-        points.draw();
+    public boolean isExists() {
+        return exists;
+    }
+
+    public void setImage(){
+        this.exists = false;
+        points.delete();
+        //points.load(s);
+        //points.draw();
+    }
+
+    public Picture getImage(){
+        return points;
     }
 
     public int getPosX() {

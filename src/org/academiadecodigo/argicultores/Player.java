@@ -11,9 +11,29 @@ public class Player extends Picture {
     Position objectPos = new Position();
     private boolean inGame = false;
     private int points = 0;
+    private String image;
+    private int playerLives;
+
+    public Player(double v, double v1, String s) {
+        super(v, v1, s);
+        this.draw();
+        image = s;
+    }
+
+    public int getPoints() {
+        return points;
+    }
 
     public void increasePoints(){
         this.points++;
+    }
+
+    public void setPlayerLives(int lives){
+        this.playerLives = lives;
+    }
+
+    public int getPlayerLives() {
+        return playerLives;
     }
 
     public boolean isInGame(){
@@ -24,17 +44,11 @@ public class Player extends Picture {
         return playerDirection;
     }
 
-    public Player(double v, double v1, String s) {
-        super(v, v1, s);
-        this.draw();
-    }
-
-
-    //METHODS
     @Override
     public void load(String s) {
         super.load(s);
         this.draw();
+        image = s;
     }
 
     @Override
@@ -45,5 +59,9 @@ public class Player extends Picture {
     @Override
     public int getY() {
         return super.getY();
+    }
+
+    public String getImage(){
+        return image;
     }
 }
