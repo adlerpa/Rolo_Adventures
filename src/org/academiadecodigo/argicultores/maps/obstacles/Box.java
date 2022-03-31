@@ -1,6 +1,5 @@
 package org.academiadecodigo.argicultores.maps.obstacles;
 
-import org.academiadecodigo.simplegraphics.graphics.Text;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Box extends Obstacles {
@@ -8,8 +7,6 @@ public class Box extends Obstacles {
     private Picture box;
     private double PosX;
     private double PosY;
-    private Text text;
-
 
     public Box(double PosX, double PosY){
         box = new Picture(PosX, PosY, "empty.png");

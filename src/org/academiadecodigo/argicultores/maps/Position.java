@@ -4,18 +4,13 @@ public class Position {
     private int x;
     private int y;
     public static final int CELLSIZE = 40;
-//    private int xMax;
-  //  private int yMax;
-
 
     public Position() {
     }
 
     public Position(int xMin,  int yMin) {
         this.x = xMin;
- //       this.xMax = xMax;
         this.y = yMin;
-  //      this.yMax = yMax;
     }
 
     public int getX() {
@@ -26,18 +21,8 @@ public class Position {
         return y;
     }
 
-  /*  public int getXMax() {
-        return xMax;
-    }
-
-    public int getYMax() {
-        return yMax;
-    }
-*/
     public void setPos(int xm,  int ym) {
         x = xm;
-      //  xMax = xM;
         y = ym;
-       // yMax = yM;
     }
 }

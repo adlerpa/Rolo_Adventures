@@ -8,10 +8,6 @@ public class Obstacles extends Picture {
 
     Position objectPos = new Position();
 
-    public Obstacles(int x, int y) {
-        objectPos.setPos(x, y);
-    }
-
     public Obstacles() {
     }
 

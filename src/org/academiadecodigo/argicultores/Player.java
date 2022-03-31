@@ -8,7 +8,6 @@ public class Player extends Picture {
 
 
     Direction playerDirection;
-    Position objectPos = new Position();
     private boolean inGame = false;
     private int points = 0;
     private String image;
@@ -34,10 +33,6 @@ public class Player extends Picture {
 
     public int getPlayerLives() {
         return playerLives;
-    }
-
-    public boolean isInGame(){
-        return inGame;
     }
 
     public Direction getPlayerDirection() {

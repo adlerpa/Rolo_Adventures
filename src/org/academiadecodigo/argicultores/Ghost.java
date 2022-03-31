@@ -19,13 +19,8 @@ public class Ghost extends Position {
         picture.draw();
     }
 
-    public void delete() {
-        this.picture.delete();
-    }
-
-    public void draw(){
-        picture = new Picture(super.getX(),super.getY(),url);
-        picture.draw();
+    public void translate(int x, int y){
+        picture.translate(x, y);
     }
 }
 

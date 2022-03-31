@@ -17,7 +17,11 @@ public class Game implements KeyboardHandler {
     private Player rolo;
     private Map map = new Map();
     private GDirection gdirection;
+    Picture pausePic;
     private boolean running;
+    private boolean startMenu = false;
+    private boolean gameOver = false;
+    boolean pause;
     Obstacles[] allObstacles;
     Points[] allPoints;
     Text scoreText = new Text(720, 830, "Score ");
@@ -29,13 +33,7 @@ public class Game implements KeyboardHandler {
     ColisionDetector colisionDetector;
     ColisionDetector checkDeath;
     Sound sound;
-    private boolean gameOver = false;
-    private Field gameOverField;
 
-
-    public Player getRolo() {
-        return rolo;
-    }
 
     public boolean isRunning() {
         return running;
@@ -46,8 +44,12 @@ public class Game implements KeyboardHandler {
     }
 
     public void init() {
-        field = new Field("menu.png");
-        running = false;
+        startMenu = true;
+        while (startMenu) {
+            running = false;
+            field = new Field("menu.png");
+        }
+        startLevel1();
     }
 
     public void drawHearts() {
@@ -64,85 +66,58 @@ public class Game implements KeyboardHandler {
         scoreText = new Text(720, 830, "Score " + rolo.getPoints());
         scoreText.draw();
         scoreText.grow(30, 20);
-
     }
 
     public void eraseHearts() {
         if (rolo.getPlayerLives() == 2) {
-           // lives3.delete();
             lives3.load("emptyheart.png");
         }
         if (rolo.getPlayerLives() == 1) {
-           // lives2.delete();
             lives2.load("emptyheart.png");
         }
         if (rolo.getPlayerLives() == 0) {
-           // lives1.delete();
             lives1.load("emptyheart.png");
-            running = false;
-            Picture gameOverPic = new Picture(10, 10, "gameover.jpg");
-            gameOverPic.draw();
-            sound.stop();
-            sound = new Sound("gameoversound.wav");
-
-            for (Ghost g : ghostArray) {
-                g.setPicture("empty.png");
-            }
+            gameOver();
         }
     }
 
-    public Sound getSound() {
-        return sound;
-    }
+    public void startLevel1() {
 
-    public void setSound(Sound sound) {
-        this.sound = sound;
-    }
-
-    public void start() throws InterruptedException {
-
-        field.getMap().delete();
         field = new Field("acfinal.png");
         rolo = new Player(10, 10, "right1.png");
+        sound = new Sound("funnybitbackground.wav");
+
         rolo.setPlayerLives(3);
         drawHearts();
         drawScore();
+        ghostArray = GhostFactory.BuildAllGhosts(570, 450);
         allObstacles = map.levelOneObs();
         allPoints = map.levelOnePoints();
 
-        sound = new Sound("funnybitbackground.wav");
-
         colisionDetector = new ColisionDetector(allObstacles, rolo);
         beerDetector = new ColisionDetector(allPoints, rolo);
-        running = true;
-        this.gdirection = new GDirection(field);
-        ghostArray = GhostFactory.BuildAllGhosts(570, 450);
-        ColisionDetector ghostsObstacles = new ColisionDetector(allObstacles);
         checkDeath = new ColisionDetector(ghostArray, rolo, this);
+        ColisionDetector ghostsObstacles = new ColisionDetector(allObstacles);
+        this.gdirection = new GDirection(field);
         gdirection.setColisionDetector(ghostsObstacles);
+
+        running = true;
+        moveGhosts();
+    }
+
+    public void moveGhosts() {
         while (isRunning()) {
-            Thread.sleep(400);
-            for (Ghost g : ghostArray) {
-                gdirection.moveGhost(g);
+            try {
+                for (Ghost g : ghostArray) {
+                    gdirection.moveGhost(g);
+                }
+                Thread.sleep(400);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                moveGhosts();
             }
+
         }
-    }
-
-    public void moveGhosts() throws InterruptedException {
-        while (isRunning()) {
-            Thread.sleep(400);
-            for (Ghost g : ghostArray) {
-                gdirection.moveGhost(g);
-            }
-        }
-    }
-
-    public GDirection getGdirection() {
-        return gdirection;
-    }
-
-    public Ghost[] getGhostArray() {
-        return ghostArray;
     }
 
     public void controls() {
@@ -172,6 +147,11 @@ public class Game implements KeyboardHandler {
         esc.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
         esc.setKey(KeyboardEvent.KEY_ESC);
         kb.addEventListener(esc);
+
+        KeyboardEvent enter = new KeyboardEvent();
+        enter.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+        enter.setKey(KeyboardEvent.KEY_ENTER);
+        kb.addEventListener(enter);
     }
 
     @Override
@@ -189,7 +169,7 @@ public class Game implements KeyboardHandler {
                     beerDetector.drinkTheBeer();
                     checkDeath.loseLife();
                     drawScore();
-                    if(rolo.getPoints() >= 30){
+                    if (rolo.getPoints() >= 30) {
                         victory();
                     }
                 }
@@ -208,7 +188,7 @@ public class Game implements KeyboardHandler {
                     beerDetector.drinkTheBeer();
                     checkDeath.loseLife();
                     drawScore();
-                    if(rolo.getPoints() >= 30){
+                    if (rolo.getPoints() >= 30) {
                         victory();
                     }
                 }
@@ -228,7 +208,7 @@ public class Game implements KeyboardHandler {
                     beerDetector.drinkTheBeer();
                     checkDeath.loseLife();
                     drawScore();
-                    if(rolo.getPoints() >= 30){
+                    if (rolo.getPoints() >= 30) {
                         victory();
                     }
                 }
@@ -248,7 +228,7 @@ public class Game implements KeyboardHandler {
 
                     checkDeath.loseLife();
                     drawScore();
-                    if(rolo.getPoints() >= 30){
+                    if (rolo.getPoints() >= 30) {
                         victory();
                     }
                 }
@@ -256,22 +236,33 @@ public class Game implements KeyboardHandler {
 
             case KeyboardEvent.KEY_ESC:
 
-                System.exit(0);
-                break;
-        }
-    }
+                if (pause || startMenu || gameOver) {
+                    System.exit(0);
 
-    public Field getField() {
-        return this.field;
+                } else {
+                    pause();
+                }
+
+
+            case KeyboardEvent.KEY_ENTER:
+                if (startMenu) {
+                    startMenu = false;
+                } else if (pause) {
+                    pause = false;
+                    pausePic.delete();
+                    moveGhosts();
+
+                } else {
+                    running = true;
+                }
+        }
     }
 
     @Override
     public void keyReleased(KeyboardEvent keyboardEvent) {
-
     }
 
     public void victory() {
-
         sound.stop();
         sound = new Sound("levelclear.wav");
         Picture gameOverPic = new Picture(10, 10, "victory1.png");
@@ -281,5 +272,25 @@ public class Game implements KeyboardHandler {
         }
         this.setRunning(false);
     }
+
+    public void gameOver() {
+        running = false;
+        gameOver = true;
+        for (Ghost g : ghostArray) {
+            g.setPicture("empty.png");
+        }
+        Picture gameOverPic = new Picture(10, 10, "gameover.jpg");
+        gameOverPic.draw();
+        sound.stop();
+        sound = new Sound("gameoversound.wav");
+    }
+
+    public void pause() {
+        running = false;
+        pause = true;
+        pausePic = new Picture(10, 10, "menu.png");
+        pausePic.draw();
+    }
+
 }
 

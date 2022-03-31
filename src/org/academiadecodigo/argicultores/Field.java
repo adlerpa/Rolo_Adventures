@@ -25,14 +25,4 @@ public class Field {
         return gameArea.getWidth();
     }
 
-    public String getS() {
-        return s;
-    }
-
-    public Picture getMap() {
-        return map;
-    }
-    public void deleteMap(){
-        map.delete();
-    }
 }

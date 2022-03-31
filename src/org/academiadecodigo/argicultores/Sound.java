@@ -9,7 +9,6 @@ import java.net.URL;
 
 public class Sound {
 
-
     URL wavFile;
     Clip clip;
     public Sound(String filePath){
@@ -33,10 +32,6 @@ public class Sound {
             }
             clip.start();
         }
-    }
-
-    public void setWavFile(URL wavFile) {
-        this.wavFile = wavFile;
     }
 
     public void stop(){

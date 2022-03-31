@@ -10,7 +10,6 @@ public class Points extends Picture {
 
     public Points(double PosX, double PosY){
         points = new Picture(PosX, PosY, "beer.png");
-
         this.PosX = PosX;
         this.PosY = PosY;
         points.draw();
@@ -23,12 +22,6 @@ public class Points extends Picture {
     public void setImage(){
         this.exists = false;
         points.delete();
-        //points.load(s);
-        //points.draw();
-    }
-
-    public Picture getImage(){
-        return points;
     }
 
     public int getPosX() {
@@ -39,8 +32,4 @@ public class Points extends Picture {
         return (int)PosY;
     }
 
-    public void deleteImg(){
-        super.delete();
-        this.delete();
-    }
 }

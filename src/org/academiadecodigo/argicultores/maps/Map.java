@@ -134,8 +134,4 @@ public class Map {
         };
         return onePoints;
     }
-
-    public Points[] getObstacles1() {
-        return onePoints;
-    }
 }

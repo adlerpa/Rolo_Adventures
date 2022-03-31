@@ -13,12 +13,10 @@ public class ColisionDetector {
     Obstacles[] allObstacles;
     Points[] allPoints;
     Ghost[] allGhosts;
-    Ghost ghost;
-    Position pos;
     Game game;
     Sound sound;
 
-    //para os ghosts
+    //ghosts
     public ColisionDetector(Obstacles[] allObstacles) {
         this.allObstacles = allObstacles;
     }
@@ -67,13 +65,6 @@ public class ColisionDetector {
     public ColisionDetector(Points[] allPoints, Player player) {
         this.allPoints = allPoints;
         this.player1 = player;
-    }
-
-
-    public ColisionDetector(Points[] allPoints, Player player, Game game ){
-        this.allPoints = allPoints;
-        this.player1 = player;
-        this.game = game;
     }
 
     public ColisionDetector(Ghost[] allGhosts, Player player, Game game ){
@@ -127,7 +118,6 @@ public class ColisionDetector {
                     player1.increasePoints();
                     sound = new Sound("getItemSound.wav");
                 }
-                //o.setImage("empty.png");
                 o.setImage();
             }
         }
